@@ -1,3 +1,4 @@
+const split = require('split');
 const winston = require('winston');
 
 winston.emitErrs = true;
@@ -15,3 +16,6 @@ const logger = new winston.Logger({
 });
 
 module.exports = logger;
+module.exports.stream = split().on('data', (message) => {
+  logger.info(message);
+});
