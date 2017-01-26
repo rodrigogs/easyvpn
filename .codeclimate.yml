@@ -5,3 +5,5 @@ engines:
     checks:
       import/no-unresolved:
         enabled: false
+      new-cap:
+        enabled: false
