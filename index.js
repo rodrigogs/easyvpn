@@ -35,6 +35,7 @@ function save(vpns) {
 }
 
 function startOpenvpn() {
+  logger.info('Starting openvpn...');
   const openvpn = which.sync('openvpn');
   const proc = spawn(openvpn, [filePath], { shell: true });
   proc.stdout.pipe(logger.stream);
@@ -46,6 +47,7 @@ function startOpenvpn() {
 }
 
 function execute(country) {
+  logger.info('Querying data...');
   ListVPNs()
     .then(vpns => filter(vpns, country))
     .then(save)

@@ -15,7 +15,8 @@
     "tunnel"
   ],
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "eslint": "eslint . --ext .js"
   },
   "dependencies": {
     "bluebird": "^3.4.7",
