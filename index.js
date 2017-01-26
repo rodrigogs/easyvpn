@@ -4,11 +4,30 @@ const fs = require('fs');
 const spawn = require('child_process').spawn;
 const Promise = require('bluebird');
 const which = require('which');
+const prompt = require('prompt');
 
 const logger = require('./src/logger');
 const ListVPNs = require('./src/api');
 
 const filePath = path.join(os.tmpdir(), 'openvpnconf');
+
+function queryCountry(countries) {
+  const match = countries => new RegExp(`^(?:${countries.map(country => `(${country})$`).join('|')})`);
+  return new Promise((resolve, reject) => {
+    logger.info(`Choose between those countries: ${countries.join(', ')}`);
+    prompt.start();
+    prompt.get([{
+      name: 'country',
+      description: 'Enter the desired country',
+      message: 'Invalid country',
+      required: true,
+      pattern: match(countries),
+    }], (err, result) => {
+      if (err) return reject(err);
+      resolve(result.country);
+    });
+  });
+}
 
 function filter(vpns, country) {
   if (!country) return vpns;
@@ -36,8 +55,8 @@ function save(vpns) {
 
 function startOpenvpn() {
   logger.info('Starting openvpn...');
-  const openvpn = which.sync('openvpn');
-  const proc = spawn(openvpn, [filePath], { shell: true });
+  const openvpn = `"${which.sync('openvpn')}"`;
+  const proc = spawn(openvpn, [`"${filePath}"`], { shell: true });
   proc.stdout.pipe(logger.stream);
   proc.stderr.on('data', data => logger.error(data.toString()));
   proc.on('close', code => logger.info(`child process exited with code ${code}`));
@@ -46,13 +65,26 @@ function startOpenvpn() {
   process.on('SIGINT', () => proc.kill());
 }
 
-function execute(country) {
+function execute(country, query) {
   logger.info('Querying data...');
   ListVPNs()
+    .then((vpns) => {
+      return new Promise((resolve, reject) => {
+        if (query) {
+          const countries = Array.from(new Set(vpns.map(vpn => vpn.countryShort)));
+          queryCountry(countries)
+            .then((result) => {
+              country = result;
+              resolve(vpns);
+            })
+            .catch(reject);
+        }
+      });
+    })
     .then(vpns => filter(vpns, country))
     .then(save)
     .then(startOpenvpn)
     .catch(logger.error);
 }
 
-module.exports = country => execute(country);
+module.exports = (country, query) => execute(country, query);

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-function findArg(args, names) {
+function findArgValue(args, names) {
   let found = null;
   args.forEach((arg, index) => {
     if (names.indexOf(arg) > -1) {
@@ -10,7 +10,13 @@ function findArg(args, names) {
   return found;
 }
 
-const args = process.argv.slice(2);
-const country = findArg(args, ['-c', '--country']);
+function hasArg(args, names) {
+  return !!args.find(arg => (names.indexOf(arg) > -1));
+}
 
-require('../index.js')(country);
+const args = process.argv.slice(2);
+const country = findArgValue(args, ['-c', '--country']);
+const queryCountry = hasArg(args, ['-q', '--query']);
+const help = hasArg(args, ['-h', '--help']);
+
+require('../index.js')(country, queryCountry);

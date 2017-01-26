@@ -24,6 +24,9 @@ Country name may be short or long:
 
 > easyvpn -c JP
 
+You can even wait for easyvpn to resolve the countries and then choose between them:
+> easyvpn -q
+
 ## Contributing
 1. Fork it!
 2. Create your feature branch: `git checkout -b my-new-feature`
