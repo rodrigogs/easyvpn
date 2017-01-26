@@ -78,6 +78,8 @@ function execute(country, query) {
               resolve(vpns);
             })
             .catch(reject);
+        } else {
+          resolve(vpns);
         }
       });
     })
