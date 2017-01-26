@@ -1,5 +1,10 @@
 # easyvpn
 
+[![Code Climate](https://codeclimate.com/github/rodrigogs/easyvpn/badges/gpa.svg)](https://codeclimate.com/github/rodrigogs/easyvpn)
+[![devDependency Status](https://david-dm.org/rodrigogs/easyvpn/dev-status.svg)](https://david-dm.org/rodrigogs/easyvpn#info=devDependencies)
+[![npm](https://img.shields.io/npm/dt/easyvpn.svg)](https://www.npmjs.com/package/easyvpn)
+[![npm version](https://badge.fury.io/js/easyvpn.svg)](https://badge.fury.io/js/easyvpn)
+
 This project was inspired by [autovpn](https://github.com/adtac/autovpn). Automatically connect you to a random VPN in a country of your choice. It uses openvpn to connect you to a server obtained from [VPN Gate](http://www.vpngate.net/en/).
 
 Differently from autovpn, this tool is able to run on Windows. Instead of executing `sudo` directly from the code, this tool leaves the task up to the user, so it is suposed to work on any platform. 
