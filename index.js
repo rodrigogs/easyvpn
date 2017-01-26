@@ -70,17 +70,16 @@ function execute(country, query) {
   ListVPNs()
     .then((vpns) => {
       return new Promise((resolve, reject) => {
-        if (query) {
-          const countries = Array.from(new Set(vpns.map(vpn => vpn.countryShort)));
-          queryCountry(countries)
-            .then((result) => {
-              country = result;
-              resolve(vpns);
-            })
-            .catch(reject);
-        } else {
-          resolve(vpns);
+        if (!query) {
+          return resolve(vpns);
         }
+        const countries = Array.from(new Set(vpns.map(vpn => vpn.countryShort)));
+        queryCountry(countries)
+          .then((result) => {
+            country = result;
+            resolve(vpns);
+          })
+          .catch(reject);
       });
     })
     .then(vpns => filter(vpns, country))
