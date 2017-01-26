@@ -14,7 +14,7 @@ Differently from autovpn, this tool is able to run on Windows. Instead of execut
 
 ## Usage
 To connect to any received vpn connection:
-> easypnv
+> easyvpn
 
 To connect to a VPN from a specific country:
 > easyvpn -c US
