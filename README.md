@@ -1,6 +1,7 @@
 # easyvpn
 
 [![Code Climate](https://codeclimate.com/github/rodrigogs/easyvpn/badges/gpa.svg)](https://codeclimate.com/github/rodrigogs/easyvpn)
+[![dependencies Status](https://david-dm.org/rodrigogs/easyvpn/status.svg)](https://david-dm.org/rodrigogs/easyvpn)
 [![devDependency Status](https://david-dm.org/rodrigogs/easyvpn/dev-status.svg)](https://david-dm.org/rodrigogs/easyvpn#info=devDependencies)
 [![npm](https://img.shields.io/npm/dt/easyvpn.svg)](https://www.npmjs.com/package/easyvpn)
 [![npm version](https://badge.fury.io/js/easyvpn.svg)](https://badge.fury.io/js/easyvpn)
