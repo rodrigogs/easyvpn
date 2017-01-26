@@ -36,7 +36,7 @@ function save(vpns) {
 
 function startOpenvpn() {
   const openvpn = which.sync('openvpn');
-  const proc = spawn(`"${openvpn}" "${filePath}"`, [], { shell: true });
+  const proc = spawn(openvpn, [filePath], { shell: true });
   proc.stdout.pipe(logger.stream);
   proc.stderr.on('data', data => logger.error(data.toString()));
   proc.on('close', code => logger.info(`child process exited with code ${code}`));
