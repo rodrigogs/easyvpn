@@ -16,6 +16,13 @@ class VPN {
     this.openVPN_ConfigData_Base64 = opts.OpenVPN_ConfigData_Base64;
   }
 
+  get countryNames() {
+    const names = [];
+    if (this.countryShort) names.push(this.countryShort.toLowerCase());
+    if (this.countryLong) names.push(this.countryLong.toLowerCase());
+    return names;
+  }
+
   get config() {
     if (!this.openVPN_ConfigData_Base64) {
       return null;

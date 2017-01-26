@@ -13,7 +13,7 @@ const filePath = path.join(os.tmpdir(), 'openvpnconf');
 function filter(vpns, country) {
   if (!country) return vpns;
   return vpns
-    .filter(vpn => [vpn.countryLong, vpn.countryShort].indexOf(country) !== -1);
+    .filter(vpn => vpn.countryNames.indexOf(country.toLowerCase()) !== -1);
 }
 
 function save(vpns) {
