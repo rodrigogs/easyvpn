@@ -8,6 +8,10 @@ const VPN = require('./vpn');
 const VPNGATE_API_URL = 'http://www.vpngate.net/api/iphone/';
 const DEFAULT_ENCODE = 'utf8';
 
+function networkError(err) {
+  return `API request failed with code: ${err.statusCode}`;
+}
+
 function filter(chunk, enc, cb) {
   const createBuffer = data => new Buffer(data, DEFAULT_ENCODE);
   const lines = chunk.toString()
@@ -28,10 +32,13 @@ function filter(chunk, enc, cb) {
 function request() {
   return new Promise((resolve, reject) => {
     got.stream(VPNGATE_API_URL)
+      .on('error', err => reject(networkError(err)))
       .pipe(through2(filter))
       .pipe(csv())
-      .on('end_parsed', resolve)
-      .on('error', reject);
+      .on('error', (err) => {
+        reject(err);
+      })
+      .on('end_parsed', resolve);
   });
 }
 
