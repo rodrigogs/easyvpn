@@ -46,3 +46,6 @@ I'd never recommend to use this tool inside a network that can't be compromised.
 
 ## License
 [Licence](https://github.com/rodrigogs/easyvpn/blob/master/LICENSE) © Rodrigo Gomes da Silva
+
+#Join the team 
+ Do you want to collaborate? Join the project at https://projectgroupie.com/projects/190
