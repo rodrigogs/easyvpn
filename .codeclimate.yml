@@ -7,3 +7,6 @@ engines:
         enabled: false
       new-cap:
         enabled: false
+ratings:
+  paths:
+  - '*/**'
