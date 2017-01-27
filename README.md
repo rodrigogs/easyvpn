@@ -40,5 +40,9 @@ You can even wait for easyvpn to resolve the countries and then choose between t
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request
 
+## Disclaimer
+Regarding the security concerns, this tool is not even close to be safe to use. VPN connections are dangerous and may expose you to threats.
+I'd never recommend to use this tool inside a network that can't be compromised.
+
 ## License
 [Licence](https://github.com/rodrigogs/easyvpn/blob/master/LICENSE) © Rodrigo Gomes da Silva
