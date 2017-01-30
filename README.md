@@ -33,6 +33,9 @@ Country name may be short or long:
 You can even wait for easyvpn to resolve the countries and then choose between them:
 > easyvpn -q
 
+A proxy can be used to get data from vpngate.net:
+> easyvpn -p http://myproxy:3128
+
 ## Contributing
 1. Fork it!
 2. Create your feature branch: `git checkout -b my-new-feature`
