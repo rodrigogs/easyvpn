@@ -17,7 +17,9 @@ function hasArg(args, names) {
 }
 
 const args = process.argv.slice(2);
-const country = findArgValue(args, ['-c', '--country']);
-const queryCountry = hasArg(args, ['-q', '--query']);
+const options = {};
+options.country = findArgValue(args, ['-c', '--country']);
+options.query = hasArg(args, ['-q', '--query']);
+options.proxy = findArgValue(args, ['-p', '--proxy']);
 
-require('../index.js')(country, queryCountry);
+require('../index.js')(options);

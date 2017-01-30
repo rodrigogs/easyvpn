@@ -58,7 +58,7 @@ function save(vpns) {
 function startOpenvpn() {
   logger.info('Starting openvpn...');
   const openvpn = `"${which.sync('openvpn')}"`;
-  const proc = spawn(openvpn, [`"${filePath}"`, '--script-security', ' 2'], { shell: true });
+  const proc = spawn(openvpn, ['--config', `"${filePath}"`], { shell: true });
   proc.stdout.pipe(logger.stream);
   proc.stderr.on('data', data => logger.error(data.toString()));
   proc.on('close', code => logger.info(`child process exited with code ${code}`));
@@ -67,24 +67,24 @@ function startOpenvpn() {
   process.on('SIGINT', () => proc.kill());
 }
 
-function execute(country, query) {
+function execute(options) {
   logger.info('Querying data...');
-  ListVPNs()
+  ListVPNs(options.proxy)
     .then((vpns) => {
       return new Promise((resolve, reject) => {
-        if (!query) {
+        if (!options.query) {
           return resolve(vpns);
         }
         const countries = Array.from(new Set(vpns.map(vpn => vpn.countryShort)));
         queryCountry(countries)
           .then((result) => {
-            country = result;
+            options.country = result;
             resolve(vpns);
           })
           .catch(reject);
       });
     })
-    .then(vpns => filter(vpns, country))
+    .then(vpns => filter(vpns, options.country))
     .then(save)
     .then(startOpenvpn)
     .catch(logger.error);

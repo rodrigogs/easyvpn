@@ -1,6 +1,6 @@
 'use strict';
 
-const got = require('got');
+const request = require('request');
 const csv = require('csvtojson');
 const through2 = require('through2');
 const Promise = require('bluebird');
@@ -11,7 +11,8 @@ const VPNGATE_API_URL = 'http://www.vpngate.net/api/iphone/';
 const DEFAULT_ENCODE = 'utf8';
 
 function networkError(err) {
-  return `API request failed with code: ${err.statusCode}`;
+  return `API request failed with code: ${err.statusCode || err.code}
+Error message: ${err.message}`;
 }
 
 function filter(chunk, enc, cb) {
@@ -31,9 +32,12 @@ function filter(chunk, enc, cb) {
   cb();
 }
 
-function request() {
+function getData(proxy) {
   return new Promise((resolve, reject) => {
-    got.stream(VPNGATE_API_URL)
+    const options = { url: VPNGATE_API_URL };
+    if (proxy) options.proxy = proxy;
+
+    request(options)
       .on('error', err => reject(networkError(err)))
       .pipe(through2(filter))
       .pipe(csv())
@@ -44,7 +48,5 @@ function request() {
   });
 }
 
-module.exports = () => {
-  return request()
-    .then(list => Promise.resolve(list.map(vpn => new VPN(vpn))));
-};
+module.exports = proxy => getData(proxy)
+  .then(list => Promise.resolve(list.map(vpn => new VPN(vpn))));
