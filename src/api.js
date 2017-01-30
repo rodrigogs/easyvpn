@@ -1,3 +1,5 @@
+'use strict';
+
 const got = require('got');
 const csv = require('csvtojson');
 const through2 = require('through2');

@@ -1,3 +1,5 @@
+'use strict';
+
 const path = require('path');
 const os = require('os');
 const fs = require('fs');
@@ -41,7 +43,7 @@ function save(vpns) {
     writer
       .on('open', () => {
         vpns = vpns.sort((a, b) => (b.score - a.score));
-        const chain = vpns.slice(0, 64).map((vpn) => {
+        const chain = vpns.slice(0, 2).map((vpn) => {
           return new Promise(resolve => writer.write(vpn.config, resolve));
         });
 
@@ -56,7 +58,7 @@ function save(vpns) {
 function startOpenvpn() {
   logger.info('Starting openvpn...');
   const openvpn = `"${which.sync('openvpn')}"`;
-  const proc = spawn(openvpn, [`"${filePath}"`], { shell: true });
+  const proc = spawn(openvpn, [`"${filePath}"`, '--script-security', ' 2'], { shell: true });
   proc.stdout.pipe(logger.stream);
   proc.stderr.on('data', data => logger.error(data.toString()));
   proc.on('close', code => logger.info(`child process exited with code ${code}`));

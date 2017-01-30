@@ -1,3 +1,5 @@
+'use strict';
+
 class VPN {
   constructor(opts) {
     this.host = opts.HostName;

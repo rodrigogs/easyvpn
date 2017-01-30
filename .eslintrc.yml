@@ -13,3 +13,4 @@ rules:
   max-len: 0
   camelcase: 0
   no-underscore-dangle: 0
+  strict: [0, 'global']

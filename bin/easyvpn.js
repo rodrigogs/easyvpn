@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+'use strict';
+
 function findArgValue(args, names) {
   let found = null;
   args.forEach((arg, index) => {

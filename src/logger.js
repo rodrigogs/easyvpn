@@ -1,3 +1,5 @@
+'use strict';
+
 const split = require('split');
 const winston = require('winston');
 
