@@ -1,6 +1,6 @@
 {
   "name": "easyvpn",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Easy way to get a VPN connection.",
   "main": "index.js",
   "repository": "https://github.com/rodrigogs/easyvpn.git",
@@ -35,7 +35,7 @@
     "eslint-plugin-import": "^2.2.0"
   },
   "bin": {
-    "easyvpn": "bin/easyvpn.js"
+    "easyvpn": "bin/easyvpn"
   },
   "engines": {
     "node": ">=4.0.0"
