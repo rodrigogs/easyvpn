@@ -2,24 +2,18 @@
 
 'use strict';
 
-function findArgValue(args, names) {
-  let found = null;
-  args.forEach((arg, index) => {
-    if (names.indexOf(arg) > -1) {
-      found = args[index + 1];
-    }
-  });
-  return found;
-}
+const program = require('commander');
 
-function hasArg(args, names) {
-  return !!args.find(arg => (names.indexOf(arg) > -1));
-}
+program
+  .version('1.1.3')
+  .option('-c, --country', 'Country name')
+  .option('-q, --query', 'Enable country query')
+  .option('-p, --proxy', 'Proxy url')
+  .parse(process.argv);
 
-const args = process.argv.slice(2);
 const options = {};
-options.country = findArgValue(args, ['-c', '--country']);
-options.query = hasArg(args, ['-q', '--query']);
-options.proxy = findArgValue(args, ['-p', '--proxy']);
+if (program.country) options.country = program.country;
+if (program.query) options.query = true;
+if (program.proxy) options.proxy = program.proxy;
 
 require('../index.js')(options);
