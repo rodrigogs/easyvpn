@@ -1,11 +1,13 @@
 {
   "name": "easyvpn",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Easy way to get a VPN connection.",
   "main": "index.js",
   "repository": "https://github.com/rodrigogs/easyvpn.git",
   "author": "Rodrigo Gomes da Silva <rodrigo.smscom@gmail.com>",
   "license": "BSD-2-Clause",
+  "main": "index.js",
+  "preferGlobal": true,
   "keywords": [
     "connection",
     "network",
