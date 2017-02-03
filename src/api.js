@@ -4,7 +4,6 @@ const request = require('request');
 const csv = require('csvtojson');
 const through2 = require('through2');
 const Promise = require('bluebird');
-const os = require('os');
 const VPN = require('./vpn');
 
 const VPNGATE_API_URL = 'http://www.vpngate.net/api/iphone/';
@@ -18,7 +17,7 @@ Error message: ${err.message}`;
 function filter(chunk, enc, cb) {
   const createBuffer = data => new Buffer(data, DEFAULT_ENCODE);
   const lines = chunk.toString()
-    .split(os.EOL)
+    .split('\r\n')
     .filter(line => (line !== '*vpn_servers' && line !== '*'))
     .map((line) => {
       if (line.startsWith('#HostName')) {
@@ -26,7 +25,7 @@ function filter(chunk, enc, cb) {
       }
       return line;
     })
-    .join(os.EOL);
+    .join('\r\n');
 
   this.push(createBuffer(lines));
   cb();

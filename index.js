@@ -55,10 +55,11 @@ function save(vpns) {
   });
 }
 
-function startOpenvpn() {
+function startOpenvpn(options = []) {
   logger.info('Starting openvpn...');
   const openvpn = `"${which.sync('openvpn')}"`;
-  const proc = spawn(openvpn, ['--config', `"${filePath}"`], { shell: true });
+  console.log(['--config', `"${filePath}"`].concat(options));
+  const proc = spawn(openvpn, ['--config', `"${filePath}"`].concat(options), { shell: true });
   proc.stdout.pipe(logger.stream);
   proc.stderr.on('data', data => logger.error(data.toString()));
   proc.on('close', code => logger.info(`child process exited with code ${code}`));
@@ -86,7 +87,7 @@ function execute(options) {
     })
     .then(vpns => filter(vpns, options.country))
     .then(save)
-    .then(startOpenvpn)
+    .then(() => startOpenvpn(options.options))
     .catch(logger.error);
 }
 

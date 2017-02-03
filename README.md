@@ -36,6 +36,9 @@ You can even wait for easyvpn to resolve the countries and then choose between t
 A proxy can be used to get data from vpngate.net:
 > easyvpn -p http://myproxy:3128
 
+To pass special arguments to openvpn:
+> easyvpn -o "--dev-type tun --dev tun0"
+
 ## Contributing
 1. Fork it!
 2. Create your feature branch: `git checkout -b my-new-feature`
