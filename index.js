@@ -58,7 +58,6 @@ function save(vpns) {
 function startOpenvpn(options = []) {
   logger.info('Starting openvpn...');
   const openvpn = `"${which.sync('openvpn')}"`;
-  console.log(['--config', `"${filePath}"`].concat(options));
   const proc = spawn(openvpn, ['--config', `"${filePath}"`].concat(options), { shell: true });
   proc.stdout.pipe(logger.stream);
   proc.stderr.on('data', data => logger.error(data.toString()));
