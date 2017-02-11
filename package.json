@@ -1,6 +1,6 @@
 {
   "name": "easyvpn",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Easy way to get a VPN connection.",
   "main": "index.js",
   "repository": "https://github.com/rodrigogs/easyvpn.git",
