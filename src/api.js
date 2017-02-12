@@ -1,9 +1,11 @@
 'use strict';
 
+const url = require('url');
 const request = require('request');
 const csv = require('csvtojson');
 const through2 = require('through2');
 const Promise = require('bluebird');
+const Agent = require('socks5-http-client/lib/Agent');
 const VPN = require('./vpn');
 
 const VPNGATE_API_URL = 'http://www.vpngate.net/api/iphone/';
@@ -31,12 +33,41 @@ function filter(chunk, enc, cb) {
   cb();
 }
 
+function resolveProxy(proxy, options) {
+  try {
+    proxy = url.parse(proxy);
+  } catch (ex) {
+    throw new Error('Invalid proxy url');
+  }
+  if (proxy.protocol.startsWith('socks')) {
+    const authParts = (proxy.auth || '')
+      .split(':')
+      .filter(part => part.length);
+    const auth = {
+      username: authParts[0],
+      password: authParts[1],
+    };
+    options.agentClass = Agent;
+    options.agentOptions = {
+      socksHost: proxy.hostname,
+      socksPort: proxy.port,
+      socksUsername: auth.username,
+      socksPassword: auth.password,
+    };
+    return;
+  }
+  options.proxy = proxy.href;
+}
+
 function getData(proxy) {
   return new Promise((resolve, reject) => {
     const options = { url: VPNGATE_API_URL };
-    if (proxy) options.proxy = proxy;
+    if (proxy) resolveProxy(proxy, options);
 
     request(options)
+      .on('response', (response) => {
+        if (response.statusCode !== 200) reject(new Error(`Request failed with code ${response.statusCode}`));
+      })
       .on('error', err => reject(networkError(err)))
       .pipe(through2(filter))
       .pipe(csv())
