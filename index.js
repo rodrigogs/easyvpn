@@ -3,7 +3,7 @@
 const path = require('path');
 const os = require('os');
 const fs = require('fs');
-const spawn = require('child_process').spawn;
+const execa = require('execa');
 const Promise = require('bluebird');
 const which = require('which');
 const prompt = require('prompt');
@@ -58,7 +58,7 @@ const save = (vpns) => {
 const startOpenvpn = (options = []) => {
   logger.info('Starting openvpn...');
   const openvpn = `"${which.sync('openvpn')}"`;
-  const proc = spawn(openvpn, ['--config', `"${filePath}"`].concat(options), { shell: true });
+  const proc = execa(openvpn, ['--config', `"${filePath}"`].concat(options), { shell: true });
   proc.stdout.pipe(logger.stream);
   proc.stderr.on('data', data => logger.error(data.toString()));
   proc.on('close', code => logger.info(`child process exited with code ${code}`));

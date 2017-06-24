@@ -1,6 +1,6 @@
 {
   "name": "easyvpn",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Easy way to get a VPN connection.",
   "main": "index.js",
   "repository": "https://github.com/rodrigogs/easyvpn.git",
@@ -22,6 +22,7 @@
     "bluebird": "^3.5.0",
     "commander": "^2.10.0",
     "csvtojson": "^1.1.7",
+    "execa": "^0.7.0",
     "prompt": "^1.0.0",
     "request": "^2.81.0",
     "socks5-http-client": "^1.0.2",
