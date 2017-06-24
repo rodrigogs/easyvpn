@@ -20,24 +20,24 @@ Differently from autovpn, this tool is able to run on Windows. Instead of execut
 
 ## Usage
 To connect to any received vpn connection:
-> easyvpn
+> ```$ easyvpn```
 
 To connect to a VPN from a specific country:
-> easyvpn -c US
+> ```$ easyvpn -c US```
 
 Country name may be short or long:
-> easyvpn -c Japan
+> ```$ easyvpn -c Japan```
 
-> easyvpn -c JP
+> ```$ easyvpn -c JP```
 
 You can even wait for easyvpn to resolve the countries and then choose between them:
-> easyvpn -q
+> ```$ easyvpn -q```
 
 A proxy can be used to get data from vpngate.net:
-> easyvpn -p http://myproxy:3128
+> ```$ easyvpn -p http://myproxy:3128```
 
 To pass special arguments to openvpn:
-> easyvpn -o "--dev-type tun --dev tun0"
+> ```$ easyvpn -o "--dev-type tun --dev tun0"```
 
 ## Contributing
 1. Fork it!

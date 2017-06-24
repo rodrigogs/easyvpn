@@ -13,7 +13,7 @@ const ListVPNs = require('./src/api');
 
 const filePath = path.join(os.tmpdir(), 'openvpnconf');
 
-function queryCountry(countries) {
+const queryCountry = (countries) => {
   const match = countries => new RegExp(`^(?:${countries.map(country => `(${country})$`).join('|')})`);
   return new Promise((resolve, reject) => {
     logger.info(`Choose between those countries: ${countries.join(', ')}`);
@@ -29,15 +29,15 @@ function queryCountry(countries) {
       resolve(result.country);
     });
   });
-}
+};
 
-function filter(vpns, country) {
+const filter = country => (vpns) => {
   if (!country) return vpns;
   return vpns
     .filter(vpn => vpn.countryNames.indexOf(country.toLowerCase()) !== -1);
-}
+};
 
-function save(vpns) {
+const save = (vpns) => {
   return new Promise((resolve, reject) => {
     const writer = fs.createWriteStream(filePath, { overwrite: true });
     writer
@@ -53,9 +53,9 @@ function save(vpns) {
       .on('error', reject)
       .once('close', resolve);
   });
-}
+};
 
-function startOpenvpn(options = []) {
+const startOpenvpn = (options = []) => {
   logger.info('Starting openvpn...');
   const openvpn = `"${which.sync('openvpn')}"`;
   const proc = spawn(openvpn, ['--config', `"${filePath}"`].concat(options), { shell: true });
@@ -65,9 +65,9 @@ function startOpenvpn(options = []) {
 
   process.on('exit', () => proc.kill());
   process.on('SIGINT', () => proc.kill());
-}
+};
 
-function execute(options) {
+const execute = (options) => {
   logger.info('Querying data...');
   ListVPNs(options.proxy)
     .then((vpns) => {
@@ -84,10 +84,10 @@ function execute(options) {
           .catch(reject);
       });
     })
-    .then(vpns => filter(vpns, options.country))
+    .then(filter(options.country))
     .then(save)
     .then(() => startOpenvpn(options.options))
     .catch(logger.error);
-}
+};
 
 module.exports = (country, query) => execute(country, query);

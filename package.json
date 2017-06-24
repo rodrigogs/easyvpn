@@ -1,6 +1,6 @@
 {
   "name": "easyvpn",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Easy way to get a VPN connection.",
   "main": "index.js",
   "repository": "https://github.com/rodrigogs/easyvpn.git",
@@ -19,21 +19,21 @@
     "eslint": "eslint . --ext .js"
   },
   "dependencies": {
-    "bluebird": "^3.4.7",
-    "commander": "^2.9.0",
-    "csvtojson": "^1.1.3",
+    "bluebird": "^3.5.0",
+    "commander": "^2.10.0",
+    "csvtojson": "^1.1.7",
     "prompt": "^1.0.0",
-    "request": "^2.79.0",
+    "request": "^2.81.0",
     "socks5-http-client": "^1.0.2",
     "split": "^1.0.0",
     "through2": "^2.0.3",
-    "which": "^1.2.12",
+    "which": "^1.2.14",
     "winston": "^2.3.1"
   },
   "devDependencies": {
-    "eslint": "^3.14.0",
-    "eslint-config-airbnb-base": "^11.0.1",
-    "eslint-plugin-import": "^2.2.0"
+    "eslint": "^4.1.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.6.0"
   },
   "bin": {
     "easyvpn": "bin/easyvpn"

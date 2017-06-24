@@ -71,9 +71,7 @@ function getData(proxy) {
       .on('error', err => reject(networkError(err)))
       .pipe(through2(filter))
       .pipe(csv())
-      .on('error', (err) => {
-        reject(err);
-      })
+      .on('error', reject)
       .on('end_parsed', resolve);
   });
 }
