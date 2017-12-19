@@ -59,16 +59,20 @@ const startOpenvpn = (options = []) => {
   logger.info('Starting openvpn...');
   const openvpn = `"${which.sync('openvpn')}"`;
   const proc = execa(openvpn, ['--config', `"${filePath}"`].concat(options), { shell: true });
+
   proc.stdout.pipe(logger.stream);
   proc.stderr.on('data', data => logger.error(data.toString()));
   proc.on('close', code => logger.info(`child process exited with code ${code}`));
 
   process.on('exit', () => proc.kill());
   process.on('SIGINT', () => proc.kill());
+
+  return proc;
 };
 
 const execute = (options) => {
   logger.info('Querying data...');
+
   ListVPNs(options.proxy)
     .then((vpns) => {
       return new Promise((resolve, reject) => {
@@ -86,8 +90,8 @@ const execute = (options) => {
     })
     .then(filter(options.country))
     .then(save)
-    .then(() => startOpenvpn(options.options))
+    .then(() => startOpenvpn(options.openvpn_opts))
     .catch(logger.error);
 };
 
-module.exports = (country, query) => execute(country, query);
+module.exports = options => execute(options);

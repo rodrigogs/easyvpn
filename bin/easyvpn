@@ -15,7 +15,7 @@ program
   .option('-c, --country <name>', 'Country name')
   .option('-q, --query', 'Enable country query')
   .option('-p, --proxy <url>', 'Proxy url')
-  .option('-o, --options <options>', 'Openvpn options', list)
+  .option('-o, --openvpn_opts <openvpn_opts>', 'Openvpn options', list)
   .parse(process.argv);
 
 require('../index.js')(program);
