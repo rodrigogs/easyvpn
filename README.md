@@ -8,7 +8,7 @@
 
 This project was inspired by [autovpn](https://github.com/adtac/autovpn). Automatically connect you to a random VPN in a country of your choice. It uses openvpn to connect you to a server obtained from [VPN Gate](http://www.vpngate.net/en/).
 
-Differently from autovpn, this tool is able to run on Windows. Instead of executing `sudo` directly from the code, this tool leaves the task up to the user, so it is suposed to work on any platform. 
+Differently from autovpn, this tool is able to run on Windows. Instead of executing `sudo` directly from the code, this tool leaves the task up to the user, so it is supposed to work on any platform. 
  
 ## Requirements
 > [openvpn](https://openvpn.net/index.php/open-source/downloads.html) must be installed and set in the environment.
